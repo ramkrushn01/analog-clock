@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Analog Clock</title>
+    </head>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            background-color: black;
+            background-repeat: no-repeat;
+        }
+        @media screen and (max-width: 900px) {
+
+            .main-div {
+                width: 90vw !important;
+                height: 90vw !important;
+            }
+
+            #heading {
+            margin-block: 50px !important;
+            }
+            .outline{
+                text-align: center !important;
+            }
+        }
+
+        #heading {
+            margin-block: 10px;
+            text-align: center;
+            font-family: monospace;
+            border: 1px solid black;
+            width: fit-content;
+            margin-inline: auto;
+            padding: 2px;
+            color: white;
+            border-radius: 5px;
+            /* box-shadow: 2px 2px 20px white; */
+            text-decoration: underline;
+        }
+
+        .main-div {
+            display: flex;
+            margin: auto;
+            width: 45vw;
+            height: 45vw;
+            /* overflow: auto; */
+            /* border: 2px solid black; */
+        }
+        .outline {
+            position: relative;
+            background-color: black;
+            display: flex;
+            width: 90%;
+            height: 90%;
+            margin: auto;
+            /* border: 1px solid red; */
+            box-shadow: 2px 2px 50px 5px rgb(0, 0, 255);
+            border-radius: 90%;
+        }
+
+        .outline:hover{
+            background:linear-gradient(20deg,red ,blue);
+        }
+
+        .companyName {
+            color: white;
+            height: fit-content;
+            position: relative;
+            margin-inline: auto;
+            top: 15%;
+        }
+        span {
+            color: white;
+            font-weight: bolder;
+        }
+
+        .time12 {
+            width: fit-content;
+            height: fit-content;
+            position: absolute;
+            left: 48%;
+        }
+        .time3 {
+            height: fit-content;
+            width: fit-content;
+            position: absolute;
+            top: 50%;
+            right: 0%;
+        }
+
+        .time6 {
+            height: fit-content;
+            width: fit-content;
+            position: absolute;
+            bottom: 0%;
+            left: 48%;
+        }
+
+        .time9 {
+            height: fit-content;
+            width: fit-content;
+            position: absolute;
+            top: 50%;
+        }
+
+        .center-machine {
+            z-index: 6;
+            top: 48%;
+            left: 48%;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: black;
+            box-shadow: 1px 1px 10px white;
+            border-radius: 10px;
+        }
+        .hour-tick {
+            z-index: 3;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            width: 25%;
+            height: 5px;
+            border: 1px solid white;
+            background-color: red;
+            border-radius: 5px;
+            transform: rotateZ(270deg);
+            transform-origin: 0px;
+        }
+        .minute-tick {
+            z-index: 4;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            width: 35%;
+            height: 2px;
+            background-color: blue;
+            border-radius: 3px;
+            transform: rotateZ(270deg);
+            transform-origin: 0px;
+        }
+        .sec-tick {
+            z-index: 5;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            width: 45%;
+            height: 1px;
+            background-color: green;
+            border-radius: 3px;
+            transform: rotateZ(270deg);
+            transform-origin: 0px;
+            transition: 0.1s;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0%;
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            width: 94.8%;
+            font-family: monospace;
+            font-size: larger;
+        }
+    </style>
+    <body>
+        <h1 id="heading">Analog Clock</h1>
+        <div class="main-div">
+            <div class="outline" id="outline">
+                <span class="companyName" id="companyName">RS Digital's</span>
+                <span class="time9"> IX </span>
+                <span class="time3"> III </span>
+                <span class="time12"> XII </span>
+                <span class="time6"> VI </span>
+
+                <div id="center_machine" class="center-machine"></div>
+                <div id="hour_tick" class="hour-tick"></div>
+                <div id="minute_tick" class="minute-tick"></div>
+                <div id="sec_tick" class="sec-tick"></div>
+            </div>
+        </div>
+        <!-- <audio id="myAudio" src="https://dm0qx8t0i9gc9.cloudfront.net/previews/audio/BsTwCwBHBjzwub4i4/drum-bongo-single-hit_My1zTu4O_NWM.mp3"></audio> -->
+        <!-- <audio id="myAudio" src="https://assets.mixkit.co/sfx/preview/mixkit-drum-and-percussion-545.mp3"></audio> -->
+        <!-- <audio id="myAudio" src="https://assets.mixkit.co/sfx/preview/mixkit-tribal-dry-drum-558.mp3"></audio> -->
+        <!-- <audio id="myAudio" src="https://assets.mixkit.co/sfx/preview/mixkit-negative-tone-interface-tap-2569.mp3"></audio> -->
+        <audio id="myAudio" src="https://www.fesliyanstudios.com//soundeffects/2019-03-8/Original/Clock-Ticking-D-www.fesliyanstudios.com.mp3"></audio>
+        
+
+        <div class="footer"><p>Design By: Ramkrushn B. Salunkhe</p></div>
+    </body>
+    <script>
+        var currentTime = new Date();
+        var currentSec = currentTime.getSeconds();
+        var currentMinute = currentTime.getMinutes();
+        // var currentMinute = 59;
+        var currentHour = currentTime.getHours();
+
+        var s = 270 + (6 * currentSec);
+        var m = 270 + (6 * currentMinute);
+        var h = 270 + (30 * currentHour) + currentMinute * 0.1;
+
+        var a = 1;
+        var audioPlayState = false;
+
+        document.onclick = ()=>{
+            if(audioPlayState){
+                audioPlayState = false;
+                try {
+                    myAudio.pause();
+                } catch (error) {
+                    console.warn(error);
+                }
+            }
+            else{
+                audioPlayState = true;
+            }
+        }
+
+        if(currentTime.getDate()<10){
+            cDate = "0"+currentTime.getDate();
+        }
+        else{
+            cDate = currentTime.getDate();
+        }
+        if(currentTime.getMonth()<10){
+            cMonth = "0"+currentTime.getMonth()
+        }
+        else{
+            cMonth = currentTime.getMonth();
+        }
+
+        companyName.innerText = cDate+"/"+cMonth+"/"+currentTime.getFullYear()
+
+
+        setInterval(() => {
+            sec_tick.style.transform = "rotateZ(" + s + "deg)";
+            minute_tick.style.transform = "rotateZ(" + m + "deg)";
+            hour_tick.style.transform = "rotateZ(" + h + "deg)";
+
+
+            try {
+                if(audioPlayState){myAudio.play()};
+            } catch (error) {
+                console.warn(error)
+                
+            }
+
+            if(a==1){
+                outline.style.boxShadow =  "2px 2px 50px 5px rgb(255,0,0)";
+                outline.style.border =  "0.01px solid red";
+            }
+            else if(a==2){
+                outline.style.boxShadow =  "2px 2px 50px 5px rgb(0,255,0)";
+                outline.style.border =  "0.01px solid green";
+
+            }
+            else{
+                outline.style.boxShadow =  "2px 2px 50px 5px rgb(0,0,255)";
+                outline.style.border =  "0.01px solid blue";
+                a = 0;
+            }
+
+            s = s + 6;
+            m = m + 0.1;
+            h = h + 0.0016666666666666668;
+
+            a++;
+            if (s == 631) {
+                s = 270;
+            }
+
+            if(a==3){
+                a=0;
+            }
+
+            // console.log("Sec",sec_tick.style.transform);
+            // console.log("Min",minute_tick.style.transform);
+            // console.log("Hour",hour_tick.style.transform);
+        }, 1000);
+    </script>
+</html>
+
