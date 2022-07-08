@@ -207,7 +207,7 @@
 
         var s = 270 + (6 * currentSec);
         var m = 270 + (6 * currentMinute);
-        var h = 270 + (30 * currentHour) + currentMinute * 0.1;
+        var h = 270 + (30 * currentHour) + currentMinute * 0.5;
 
         var a = 1;
         var audioPlayState = false;
@@ -234,7 +234,7 @@
         }
         if(currentTime.getMonth()<10){
             cMonth = parseInt(currentTime.getMonth()) +1;
-            cMonth = "0"+cMonth.toString();
+            cMonth = "0" + cMonth.toString();
         }
         else{
             cMonth = currentTime.getMonth();
@@ -290,4 +290,3 @@
         }, 1000);
     </script>
 </html>
-
